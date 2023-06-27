@@ -20,7 +20,7 @@ export class SearchFlightsComponent implements OnInit {
     this.handleError)
   }
 
-  private handleError(err:any) {
+  private handleError(err: any) {
       console.log(err)
   }
 }
