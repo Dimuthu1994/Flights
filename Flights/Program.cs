@@ -16,6 +16,7 @@ builder.Services.AddSwaggerGen(c =>
 	c.CustomOperationIds(e => $"{e.ActionDescriptor.RouteValues["action"] + e.ActionDescriptor.RouteValues["controller"]}");
 });
 
+//updated cors
 var app = builder.Build();
 app.UseCors(builder => builder
 .WithOrigins("*")
