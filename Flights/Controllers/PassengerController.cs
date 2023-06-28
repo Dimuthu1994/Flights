@@ -8,6 +8,7 @@ namespace Flights.Controllers
 	[ApiController]
 	public class PassengerController : ControllerBase
 	{
+		//to store
 		static private IList<NewPassengerDto> Passengers = new List<NewPassengerDto>();
 
 		[HttpPost]
@@ -16,6 +17,7 @@ namespace Flights.Controllers
 		[ProducesResponseType(500)]
 		public IActionResult Register(NewPassengerDto dto)
 		{
+			//reciving the register call
 			Passengers.Add(dto);
 			System.Diagnostics.Debug.WriteLine(Passengers.Count);
 			return Ok();
