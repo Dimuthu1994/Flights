@@ -26,6 +26,20 @@ export class RegisterPassengerComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  checkPassenger(): void {
+    // 👈️ non-null assertion
+    const params = { email: this.form.get('email')?.value! }
+
+    this.passengerService
+      .findPassenger(params)
+      .subscribe(
+        _ => {
+          console.log("Passenger exists. Logging in now.")
+          this.authService.loginUser({ email: this.form.get('email')?.value })
+        }
+      )
+  }
+
   register() {
     console.log("Form Values:", this.form.value);
     this.passengerService.registerPassenger({ body: this.form.value })
