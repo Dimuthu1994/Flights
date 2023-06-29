@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PassengerService } from './../api/services/passenger.service';
 import { FormBuilder } from '@angular/forms';
+import { AuthService } from '../auth/auth.service';
 
 
 @Component({
@@ -10,7 +11,10 @@ import { FormBuilder } from '@angular/forms';
 })
 export class RegisterPassengerComponent implements OnInit {
 
-  constructor(private passengerService: PassengerService, private fb: FormBuilder) { }
+  constructor(
+    private passengerService: PassengerService,
+    private fb: FormBuilder,
+    private authService: AuthService) { }
 
   form = this.fb.group({
     email: [''],
@@ -23,9 +27,10 @@ export class RegisterPassengerComponent implements OnInit {
   }
 
   register() {
-    console.log("Form Values:", this.form.value)
+    console.log("Form Values:", this.form.value);
     this.passengerService.registerPassenger({ body: this.form.value })
-      .subscribe(_=>console.log("form posted to server"));
+      .subscribe(_ => this.authService.loginUser({ email: this.form.get('email')?.value }),
+      console.error);
   }
 
 }
