@@ -34,7 +34,10 @@ export class RegisterPassengerComponent implements OnInit {
 
     this.passengerService
       .findPassenger(params)
-      .subscribe(this.login)
+      .subscribe(this.login, e => {
+        if (e.status != 404)
+          console.error(e)
+      })
   }
 
   register() {
@@ -45,5 +48,6 @@ export class RegisterPassengerComponent implements OnInit {
 
   private login = () => {
     this.authService.loginUser({ email: this.form.get('email')?.value })
+    this.router.navigate(['/search-flights'])
   }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FlightService } from './../api/services/flight.service';
 import { FlightRm } from '../api/models';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-book-flight',
@@ -13,10 +14,15 @@ export class BookFlightComponent implements OnInit {
   flight: FlightRm = {}
   constructor(private route: ActivatedRoute,
     private router: Router,
-    private flightService: FlightService) { }
+    private flightService: FlightService,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.route.paramMap.subscribe(p => this.findFlight(p.get("flightId")))
+    if (!this.authService.currentUser)
+      this.router.navigate(['/register-passenger'])
+
+    this.route.paramMap
+      .subscribe(p => this.findFlight(p.get("flightId")))
   }
 
   private findFlight = (flightId: string | null) => {
