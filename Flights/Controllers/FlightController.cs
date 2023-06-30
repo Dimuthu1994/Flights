@@ -1,6 +1,6 @@
-﻿using Flights.ReadModels;
+﻿using Flights.Dtos;
+using Flights.ReadModels;
 using Microsoft.AspNetCore.Mvc;
-using System;
 
 namespace Flights.Controllers
 {
@@ -63,8 +63,9 @@ namespace Flights.Controllers
 				new TimePlaceRm("Le Bourget",DateTime.Now.AddHours(random.Next(1, 58))),
 				new TimePlaceRm("Zagreb",DateTime.Now.AddHours(random.Next(4, 60))),
 					random.Next(1, 853))
-			
+
 		};
+		static private IList<BookDto> Bookings = new List<BookDto>();
 		public FlightController(ILogger<FlightController> logger)
 		{
 			_logger = logger;
@@ -85,10 +86,21 @@ namespace Flights.Controllers
 		public ActionResult<FlightRm> Find(Guid id)
 		{
 
-		var flight = flights.SingleOrDefault(f => f.Id == id);
-			if(flight == null)
+			var flight = flights.SingleOrDefault(f => f.Id == id);
+			if (flight == null)
 				return NotFound();
 			return Ok(flight);
+
+		}
+
+		[HttpPost]
+
+		public void Book(BookDto dto)
+		{
+			System.Diagnostics.Debug.WriteLine($"Booking a new flight {dto.FlightId}");
+
+
+			Bookings.Add(dto);
 
 		}
 	}
