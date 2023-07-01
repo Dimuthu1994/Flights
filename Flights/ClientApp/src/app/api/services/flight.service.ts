@@ -10,6 +10,7 @@ import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
 import { BookDto } from '../models/book-dto';
+import { Flight } from '../models/flight';
 import { FlightRm } from '../models/flight-rm';
 
 @Injectable({
@@ -187,7 +188,7 @@ export class FlightService extends BaseService {
   },
   context?: HttpContext
 
-): Observable<StrictHttpResponse<FlightRm>> {
+): Observable<StrictHttpResponse<Flight>> {
 
     const rb = new RequestBuilder(this.rootUrl, FlightService.FindFlightPath, 'get');
     if (params) {
@@ -201,7 +202,7 @@ export class FlightService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<FlightRm>;
+        return r as StrictHttpResponse<Flight>;
       })
     );
   }
@@ -217,10 +218,10 @@ export class FlightService extends BaseService {
   },
   context?: HttpContext
 
-): Observable<FlightRm> {
+): Observable<Flight> {
 
     return this.findFlight$Plain$Response(params,context).pipe(
-      map((r: StrictHttpResponse<FlightRm>) => r.body as FlightRm)
+      map((r: StrictHttpResponse<Flight>) => r.body as Flight)
     );
   }
 
@@ -235,7 +236,7 @@ export class FlightService extends BaseService {
   },
   context?: HttpContext
 
-): Observable<StrictHttpResponse<FlightRm>> {
+): Observable<StrictHttpResponse<Flight>> {
 
     const rb = new RequestBuilder(this.rootUrl, FlightService.FindFlightPath, 'get');
     if (params) {
@@ -249,7 +250,7 @@ export class FlightService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<FlightRm>;
+        return r as StrictHttpResponse<Flight>;
       })
     );
   }
@@ -265,10 +266,10 @@ export class FlightService extends BaseService {
   },
   context?: HttpContext
 
-): Observable<FlightRm> {
+): Observable<Flight> {
 
     return this.findFlight$Response(params,context).pipe(
-      map((r: StrictHttpResponse<FlightRm>) => r.body as FlightRm)
+      map((r: StrictHttpResponse<Flight>) => r.body as Flight)
     );
   }
 
