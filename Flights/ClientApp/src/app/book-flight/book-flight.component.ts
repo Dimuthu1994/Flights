@@ -20,7 +20,7 @@ export class BookFlightComponent implements OnInit {
     private fb: FormBuilder) { }
 
   form = this.fb.group({
-    number: [1, Validators.required]
+    number: [1, Validators.compose([Validators.required, Validators.min(1), Validators.max(254)])]
   })
 
   ngOnInit(): void {
@@ -68,6 +68,10 @@ export class BookFlightComponent implements OnInit {
       .subscribe(_ => this.router.navigate(['/my-booking']),
       this.handleError)
 
+  }
+
+  get number() {
+    return this.form.controls.number
   }
 
 }
