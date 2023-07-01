@@ -1,4 +1,6 @@
-﻿namespace Flights.Domain.Entities
+﻿
+
+namespace Flights.Domain.Entities
 {
 	public record Flight(
 		Guid Id,
@@ -7,6 +9,10 @@
 		TimePlace Departure,
 		TimePlace Arrival,
 		int RemainingNumberOfSeats
-		);
+		)
+
+	{
+		public IList<Booking> Bookings = new List<Booking>();
+	}
 
 }

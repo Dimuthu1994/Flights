@@ -66,7 +66,7 @@ namespace Flights.Controllers
 					random.Next(1, 853))
 
 		};
-		static private IList<BookDto> Bookings = new List<BookDto>();
+
 		public FlightController(ILogger<FlightController> logger)
 		{
 			_logger = logger;
@@ -121,14 +121,20 @@ namespace Flights.Controllers
 		[ProducesResponseType(500)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		[ProducesResponseType(200)]
-		public IActionResult Book(BookDto dto)
+		public IActionResult Book(Book dto)
 		{
 			System.Diagnostics.Debug.WriteLine($"Booking a new flight {dto.FlightId}");
-			var flightFound = flights.Any(f => f.Id == dto.FlightId);
-			if (flightFound == false)
+			var flight = flights.SingleOrDefault(f => f.Id == dto.FlightId);
+			if (flight == null)
 				return NotFound();
 
-			Bookings.Add(dto);
+			flight.Bookings.Add(
+				new Booking(
+					dto.FlightId,
+					dto.PassengerEmail,
+					dto.NumberOfSeats)
+				);
+
 			return CreatedAtAction(nameof(Find), new { id = dto.FlightId });
 		}
 	}
