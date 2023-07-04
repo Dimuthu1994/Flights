@@ -31,4 +31,18 @@ export class MyBookingsComponent implements OnInit {
     console.log(err);
   }
 
+  cancel(booking: BookingRm) {
+
+    const dto: BookDto = {
+      flightId: booking.flightId,
+      numberOfSeats: booking.numberOfBookedSeats,
+      passengerEmail: booking.passengerEmail
+    };
+
+    this.bookingService.cancelBooking({ body: dto })
+      .subscribe(_ =>
+        this.bookings = this.bookings.filter(b => b != booking)
+        , this.handleError);
+  }
+
 }
