@@ -121,7 +121,7 @@ namespace Flights.Controllers
 		[ProducesResponseType(500)]
 		[ProducesResponseType(StatusCodes.Status404NotFound)]
 		[ProducesResponseType(200)]
-		public IActionResult Book(Book dto)
+		public IActionResult Book(BookDto dto)
 		{
 			System.Diagnostics.Debug.WriteLine($"Booking a new flight {dto.FlightId}");
 			var flight = flights.SingleOrDefault(f => f.Id == dto.FlightId);
