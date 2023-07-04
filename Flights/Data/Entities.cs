@@ -7,5 +7,10 @@ namespace Flights.Data
 	{
 		public DbSet<Passenger> Passengers => Set<Passenger>();
 		public DbSet<Flight> Flights => Set<Flight>();
+
+		public Entities(DbContextOptions<Entities> options) : base(options)
+		{
+
+		}
 	}
 }
